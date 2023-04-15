@@ -40,7 +40,7 @@ public class LuckyYouController {
         return listOfLuckyNumbers;
     }
 
-    @RequestMapping("/random")
+    @GetMapping("/random")
     public String helloRandom(@RequestParam String luckyYou, @RequestParam(required = false) String firstName,
                               @RequestParam(required = false) String lastName) {
         String randomThing = "";
@@ -72,7 +72,7 @@ public class LuckyYouController {
 
 
     //1d:
-    @RequestMapping("/randomDefault")
+    @GetMapping("/randomDefault")
     public String helloRandomDefault(@RequestParam String luckyYou, @RequestParam(defaultValue = "Eli") String firstName,
                                      @RequestParam(defaultValue = "Ku") String lastName) {
         String randomThing = "";

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class FriendsPOJO {
+public class Friends {
     private int id;
     private String name;
     private String nickName;

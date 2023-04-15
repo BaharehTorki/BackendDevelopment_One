@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsDAO {
-    public List<FriendsPOJO> getFriendsList(){
+    public List<Friends> getFriendsList(){
 
-        List<FriendsPOJO> friendsList = new ArrayList<>();
+        List<Friends> friendsList = new ArrayList<>();
 
         List<String> phones1 = new ArrayList<>();
         phones1.add("0731211234");
@@ -44,11 +44,11 @@ public class FriendsDAO {
         adress5.add("Sunbybargvägen14");
         adress5.add("Veckovägen44");
 
-        FriendsPOJO f1 = new FriendsPOJO(1, "Simon Edlund", "Victor", phones1, "2011-05-23", adress1);
-        FriendsPOJO f2 = new FriendsPOJO(2, "Danielle Johansson", "Sofia", phones2, "2008-04-16", adress2 );
-        FriendsPOJO f3 = new FriendsPOJO(3, "Cristian Gustavsson", "Izabel", phones3,"2000-01-10", adress3);
-        FriendsPOJO f4 = new FriendsPOJO(4, "Emilia Davidsson" ,"Izabel", phones4, "1990-04-22", adress4 );
-        FriendsPOJO f5 = new FriendsPOJO(5, "Viliam Björklund", "Samuel", phones5, "1790-05-11", adress5);
+        Friends f1 = new Friends(1, "Simon_Edlund", "Victor", phones1, "2011-05-23", adress1);
+        Friends f2 = new Friends(2, "Danielle_Johansson", "Sofia", phones2, "2008-04-16", adress2 );
+        Friends f3 = new Friends(3, "Cristian_Gustavsson", "Izabel", phones3,"2000-01-10", adress3);
+        Friends f4 = new Friends(4, "Emilia_Davidsson" ,"Izabel", phones4, "1990-04-22", adress4 );
+        Friends f5 = new Friends(5, "Viliam_Björklund", "Samuel", phones5, "1790-05-11", adress5);
 
         friendsList.add(f1);
         friendsList.add(f2);
