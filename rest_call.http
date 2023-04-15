@@ -1,0 +1,25 @@
+GET http://localhost:8080/books/addByGET
+###
+
+GET http://localhost:8080/books
+###
+
+GET http://localhost:8080/books/1000
+###
+
+POST http://localhost:8080/books/add
+{
+    "id":1000,
+    "title":"sdlasdjla",
+    "author":"bahareh"
+
+}
+###
+
+
+
+GET http://localhost:8080/actuator/health
+Accept: application/vnd.spring-boot.actuator.v3+json
+
+###
+

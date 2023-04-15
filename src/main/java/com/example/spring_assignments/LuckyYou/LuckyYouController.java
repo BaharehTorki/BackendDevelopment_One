@@ -1,9 +1,6 @@
 package com.example.spring_assignments.LuckyYou;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +14,22 @@ public class LuckyYouController {
         return Integer.toString((int) (Math.random() * 10) + 1);
     }
 
-    public String RandomAnimal() {
+    public String randomAnimal() {
         List<String> animalList = List.of("hund", "katt", "spindel", "skata");
         return animalList.get((int) (Math.random() * 4));
     }
 
-    //1e metod:
+    //________________________________________________________
+    
+    //listOfNumbers length
     public boolean checkIfLuckyNumber(String number, List<String> listOfNumbers) {
-        boolean lucky = true;
-        for (String numberOnList : listOfNumbers) {
-            if (numberOnList.equals(number)) {
-                lucky = false;
-                break;
-            }
-        }
-        return lucky;
+        int i = 0;
+        do {
+            i++;
+        }while (number.equals(listOfNumbers));
+        return false;
     }
 
-    //1f metod:
     public List<String> giveMeMyLuckyNumbers(List<String> listOfNumbers) {
         List<String> listOfLuckyNumbers = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
@@ -45,14 +40,19 @@ public class LuckyYouController {
         return listOfLuckyNumbers;
     }
 
-    //1c:
     @RequestMapping("/random")
     public String helloRandom(@RequestParam String luckyYou, @RequestParam(required = false) String firstName,
                               @RequestParam(required = false) String lastName) {
         String randomThing = "";
         if (Objects.equals(luckyYou, "animal")) {
             if (firstName != null && lastName != null) {
-                randomThing = firstName + " " + lastName + ", ditt lyckodjur är " + RandomAnimal();
+                randomThing = firstName + " " + lastName + ", ditt lyckodjur är " + randomNumber();
+            } else if (firstName != null) {
+                randomThing = firstName + ", ditt lyckodjur är " + randomNumber();
+            } else if (lastName != null) {
+                randomThing = lastName + ", ditt lyckodjur är " + randomNumber();
+            } else {
+                randomThing = "Ditt lyckodjur är " + randomNumber();
             }
         } else if (Objects.equals(luckyYou, "number")) {
             if (firstName != null && lastName != null) {
@@ -77,8 +77,12 @@ public class LuckyYouController {
                                      @RequestParam(defaultValue = "Ku") String lastName) {
         String randomThing = "";
         if (Objects.equals(luckyYou, "animal")) {
-            if ((firstName != null) || (lastName != null) || (firstName.isEmpty()) || (lastName.isEmpty()) || (firstName.isBlank()) || (lastName.isBlank())) {
-                randomThing = firstName + " " + lastName + ", ditt lyckodjur är " + RandomAnimal();
+            if (firstName != null && lastName != null) {
+                randomThing = firstName + " " + lastName + ", ditt lyckodjur är " + randomNumber();
+            } else if (firstName != null) {
+                randomThing = firstName + ", ditt lyckodjur är " + randomNumber();
+            } else if (lastName != null) {
+                randomThing = lastName + ", ditt lyckodjur är " + randomNumber();
             }
         } else if (Objects.equals(luckyYou, "number")) {
             if (firstName != null && lastName != null) {
@@ -94,9 +98,8 @@ public class LuckyYouController {
         return randomThing;
     }
 
-    //1e:
-    //http://localhost:8080/randomListNumbers?listOfUnluckyNumbers=1,2,3,4,5
-    @RequestMapping("/randomListNumbers")
+
+    @GetMapping("/randomListNumbers")
     public String helloRandomListNumbers(@RequestParam List<String> listOfUnluckyNumbers) {
         String randomNumber = randomNumber();
         boolean drawAgain = true;
@@ -111,19 +114,17 @@ public class LuckyYouController {
     }
 
 
-    @RequestMapping("/randomListNumbersPossible")
+    @GetMapping("/randomListNumbersPossible")
     public String helloRandomListNumbersPossible(@RequestParam List<String> listOfUnluckyNumbers) {
         return "Ditt/dina lyckonummer är " + giveMeMyLuckyNumbers(listOfUnluckyNumbers);
     }
 
-    //1g:
-    //http://localhost:8080/randomPath/number
-    //http://localhost:8080/randomPath/animal
-    @RequestMapping("/randomPath/{luckyYou}")
+
+    @GetMapping("/randomPath/{luckyYou}")
     public String helloRandomPath(@PathVariable String luckyYou) {
         String randomThing = "";
         if (Objects.equals(luckyYou, "animal")) {
-            randomThing = "Ditt lyckodjur är " + RandomAnimal();
+            randomThing = "Ditt lyckodjur är " + randomAnimal();
         } else if (Objects.equals(luckyYou, "number")) {
             randomThing = "Ditt lyckonummer är " + randomNumber();
         }
@@ -131,11 +132,11 @@ public class LuckyYouController {
     }
 
     //1h:
-    @RequestMapping("/randomHTML")
+    @GetMapping("/randomHTML")
     public String helloRandomHTML(@RequestParam String luckyYou) {
         String randomThing = "";
         if (Objects.equals(luckyYou, "animal")) {
-            randomThing = "<HTML><HEAD><TITLE>Hello</TITLE></HEAD><BODY><h1>Ditt lyckodjur är " + RandomAnimal() + "</h1></BODY></HTML>";
+            randomThing = "<HTML><HEAD><TITLE>Hello</TITLE></HEAD><BODY><h1>Ditt lyckodjur är " + randomAnimal() + "</h1></BODY></HTML>";
         } else if (Objects.equals(luckyYou, "number")) {
             randomThing = "<HTML><HEAD><TITLE>Hello</TITLE></HEAD><BODY><h1>Ditt lyckodjur är " + randomNumber() + "</h1></BODY></HTML>";
         }

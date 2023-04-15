@@ -9,29 +9,28 @@ public class BookController {
     BookRepo bookRepo = new BookRepo();
     List<Book> bookList = bookRepo.getBookList();
 
-    @RequestMapping("/books")
+    @GetMapping("/books")
     public List<Book> getAllBooks() {
         return bookList;
     }
 
-    @RequestMapping("/books/{id}")
+    @GetMapping("/books/{id}")
     public Book getBookById(@PathVariable int id) {
         return bookList.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
     }
 
-    @RequestMapping("/books/{fromid}/{toid}")
+    @GetMapping("/books/{fromid}/{toid}")
     public List<Book> getBookByIdRange(@PathVariable int toid, @PathVariable int fromid) {
         return bookList.stream().filter(b -> b.getId() >= fromid && b.getId() <= toid).toList();
     }
 
-    @RequestMapping("/books/{id}/delete")
+    @GetMapping("/books/{id}/delete")
     public List<Book> deleteBookById(@PathVariable int id) {
-        //removeIf kan man använda direkt på listor för att ändra dem
         bookList.removeIf(b -> b.getId() == id);
         return bookList;
     }
 
-    @RequestMapping("/books/addByGET")
+    @GetMapping("/books/addByGET")
     public List<Book> addByGET(@RequestParam int id,
                                @RequestParam String title, @RequestParam String author) {
         bookList.add(new Book(id, title, author));
@@ -42,13 +41,14 @@ public class BookController {
     public List<Book> addBookByPOST(@RequestBody Book b) {
         bookList.add(b);
         return bookList;
-    }
+    } 
 
     @PutMapping("/books/update")
     public List<Book> updateBook(@RequestBody Book b) {
         Book bookToUpdate = bookList.stream()
                 .filter(book -> book.getId() == b.getId()).findFirst().orElse(null);
         if (bookToUpdate == null) {
+            bookList.add(b);
             bookList.add(b);
         } else {
             bookToUpdate.setTitle(b.getTitle());
